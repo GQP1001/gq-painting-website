@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Schedule an Estimate — GQ Painting</title>
+    <meta name="description" content="Schedule an estimate for your painting project with GQ Painting. Fill out our quick form to get started." />
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .form-container { max-width: 600px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        .form-section { margin-bottom: 25px; display: none; }
+        .form-section.active { display: block; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--black); }
+        input[type="text"], input[type="email"], input[type="tel"], textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; }
+        textarea { resize: vertical; min-height: 100px; }
+        .checkbox-group, .radio-group { margin-bottom: 15px; }
+        input[type="checkbox"], input[type="radio"] { margin-right: 8px; }
+        .checkbox-item, .radio-item { margin-bottom: 10px; }
+        button { background-color: var(--green); color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 10px; transition: all 0.3s ease; }
+        button:hover { filter: brightness(0.95); }
+        .button-group { display: flex; gap: 10px; }
+        .prev-btn { background-color: #666; }
+        .prev-btn:hover { filter: brightness(0.9); }
+    </style>
+</head>
+
+<body>
+    <header>
+      <a href="index.html" aria-label="GQ Painting home">
+        <img src="images/logo.png" alt="GQ Painting logo" class="logo" />
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="residential.html">Residential Services</a></li>
+          <li><a href="commercial.html">Commercial Services</a></li>
+          <li><a href="schedule.html" class="highlight">Schedule an Estimate</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="gallery-reel" aria-labelledby="estimate-heading">
+        <h1 id="estimate-heading">Schedule an Estimate</h1>
+        <p style="text-align:center; max-width:900px; margin:8px auto 30px;">Fill out our simple form below and we'll contact you with an estimate for your project.</p>
+
+        <div class="form-container">
+          <form id="estimateForm" action="https://formspree.io/f/xwvozklg" method="POST">
+
+            <!-- Question 1: Project Type -->
+            <div class="form-section active" id="section1">
+                <label>Is this a residential or commercial project?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="projectType" value="residential" id="residential"> Residential
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="projectType" value="commercial" id="commercial"> Commercial
+                    </div>
+                </div>
+                <button type="button" onclick="nextSection(1)">Next</button>
+            </div>
+
+            <!-- Question 2: Interior/Exterior -->
+            <div class="form-section" id="section2">
+                <label>Is this an interior or exterior project?</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="projectScope" value="Exterior" id="exterior"> Exterior
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="projectScope" value="Interior" id="interior"> Interior
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="projectScope" value="Both" id="both"> Both
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(2)">Back</button>
+                    <button type="button" onclick="nextSection(2)">Next</button>
+                </div>
+            </div>
+
+            <!-- COMMERCIAL PATH -->
+            <!-- Commercial: Description -->
+            <div class="form-section" id="section3-commercial">
+                <label for="projectDescription">Please describe your project:</label>
+                <textarea name="projectDescription" id="projectDescription"></textarea>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(3)">Back</button>
+                    <button type="button" onclick="nextSection(3)">Next</button>
+                </div>
+            </div>
+
+            <!-- Commercial: Contact Info -->
+            <div class="form-section" id="section4-commercial">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" name="phone" id="phone">
+                <label for="email">Email Address (Optional):</label>
+                <input type="email" name="email" id="email">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city">
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(4)">Back</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+
+            <!-- RESIDENTIAL PATH -->
+            <!-- Residential: Interior Questions -->
+            <div class="form-section" id="section5-residential-interior">
+                <label>What does this project include?</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="interiorScope" value="Trim/Doors"> Trim/Doors
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="interiorScope" value="Walls"> Walls
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="interiorScope" value="Ceilings"> Ceilings
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="interiorScope" value="Cabinets"> Cabinets
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="interiorScope" value="Something Else"> Something Else
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(5)">Back</button>
+                    <button type="button" onclick="nextSection(5)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Interior Condition Questions (Dynamic) -->
+            <div class="form-section" id="section6-residential-interior-conditions">
+                <div id="conditionQuestionsContainer"></div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(6)">Back</button>
+                    <button type="button" onclick="nextSection(6)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Interior Finish Level -->
+            <div class="form-section" id="section7-residential-interior-finish">
+                <label>Choose which best applies to how you want your project to turn out:</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="finishLevel" value="Fresh coat" id="finish1"> 1. No repairs necessary, just a fresh coat of paint (cheapest option)
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="finishLevel" value="Some repairs" id="finish2"> 2. Doesn't need to be perfect, but some repairs if needed and 2 coats of paint
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="finishLevel" value="Greene Quality" id="finish3"> 3. Greene Quality treatment, making surfaces look smooth and new again, emphasis on quality
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="finishLevel" value="Perfect" id="finish4"> 4. I need it to be perfect! (Most expensive)
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(7)">Back</button>
+                    <button type="button" onclick="nextSection(7)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Interior Availability -->
+            <div class="form-section" id="section8-residential-interior-availability">
+                <label for="interiorAvailability">When are you available for an estimate?</label>
+                <input type="text" name="interiorAvailability" id="interiorAvailability" placeholder="e.g., Weekdays after 5pm">
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(8)">Back</button>
+                    <button type="button" onclick="nextSection(8)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Interior Contact Info -->
+            <div class="form-section" id="section9-residential-interior-contact">
+                <label for="firstName2">First Name:</label>
+                <input type="text" name="firstName2" id="firstName2">
+                <label for="lastName2">Last Name:</label>
+                <input type="text" name="lastName2" id="lastName2">
+                <label for="phone2">Phone Number:</label>
+                <input type="tel" name="phone2" id="phone2">
+                <label for="email2">Email Address (Optional):</label>
+                <input type="email" name="email2" id="email2">
+                <label for="city2">City:</label>
+                <input type="text" name="city2" id="city2">
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(9)">Back</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+
+            <!-- Residential: Exterior Questions -->
+            <div class="form-section" id="section5-residential-exterior">
+                <label>Does your project include bare brick to be painted?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="bareBrick" value="Yes"> Yes
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="bareBrick" value="No"> No
+                    </div>
+                </div>
+                <label>How many colors will be applied?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="colorCount" value="1"> 1
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="colorCount" value="2"> 2
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="colorCount" value="3+"> 3+
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(5)">Back</button>
+                    <button type="button" onclick="nextSection(5)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Exterior Availability -->
+            <div class="form-section" id="section6-residential-exterior-availability">
+                <label for="exteriorAvailability">When are you available for an estimate?</label>
+                <input type="text" name="exteriorAvailability" id="exteriorAvailability" placeholder="e.g., Weekends">
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(6)">Back</button>
+                    <button type="button" onclick="nextSection(6)">Next</button>
+                </div>
+            </div>
+
+            <!-- Residential: Exterior Contact Info -->
+            <div class="form-section" id="section7-residential-exterior-contact">
+                <label for="firstName3">First Name:</label>
+                <input type="text" name="firstName3" id="firstName3">
+                <label for="lastName3">Last Name:</label>
+                <input type="text" name="lastName3" id="lastName3">
+                <label for="phone3">Phone Number:</label>
+                <input type="tel" name="phone3" id="phone3">
+                <label for="email3">Email Address (Optional):</label>
+                <input type="email" name="email3" id="email3">
+                <label for="city3">City:</label>
+                <input type="text" name="city3" id="city3">
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevSection(7)">Back</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        let currentPath = null;
+
+        function nextSection(sectionNum) {
+            if (sectionNum === 1) {
+                const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+                if (!projectType) { alert('Please select a project type'); return; }
+                showSection(2);
+            } else if (sectionNum === 2) {
+                const projectScope = Array.from(document.querySelectorAll('input[name="projectScope"]:checked')).map(el => el.value);
+                if (projectScope.length === 0) { alert('Please select at least one option'); return; }
+                const projectType = document.querySelector('input[name="projectType"]:checked').value;
+                
+                if (projectType === 'commercial') {
+                    showSection('3-commercial');
+                } else {
+                    if (projectScope.includes('Interior') && !projectScope.includes('Exterior')) {
+                        showSection('5-residential-interior');
+                    } else if (projectScope.includes('Exterior') && !projectScope.includes('Interior')) {
+                        showSection('5-residential-exterior');
+                    } else {
+                        showSection('5-residential-interior');
+                    }
+                }
+            } else if (sectionNum === 3) {
+                showSection('4-commercial');
+            } else if (sectionNum === 5) {
+                const projectScope = Array.from(document.querySelectorAll('input[name="projectScope"]:checked')).map(el => el.value);
+                if (projectScope.includes('Interior') && !projectScope.includes('Exterior')) {
+                    const selectedScopes = Array.from(document.querySelectorAll('input[name="interiorScope"]:checked')).map(el => el.value);
+                    if (selectedScopes.length === 0) { alert('Please select at least one option'); return; }
+                    generateConditionQuestions(selectedScopes);
+                    showSection('6-residential-interior-conditions');
+                } else if (projectScope.includes('Exterior') && !projectScope.includes('Interior')) {
+                    showSection('6-residential-exterior-availability');
+                }
+            } else if (sectionNum === 6) {
+                if (document.getElementById('section6-residential-interior-conditions').classList.contains('active')) {
+                    showSection('7-residential-interior-finish');
+                } else if (document.getElementById('section6-residential-exterior-availability').classList.contains('active')) {
+                    showSection('7-residential-exterior-contact');
+                }
+            } else if (sectionNum === 7) {
+                if (document.getElementById('section7-residential-interior-finish').classList.contains('active')) {
+                    showSection('8-residential-interior-availability');
+                }
+            } else if (sectionNum === 8) {
+                showSection('9-residential-interior-contact');
+            }
+        }
+
+        function prevSection(sectionNum) {
+            if (sectionNum === 2) showSection(1);
+            else if (sectionNum === 3) showSection(2);
+            else if (sectionNum === 4) showSection('3-commercial');
+            else if (sectionNum === 5) showSection(2);
+            else if (sectionNum === 6) {
+                if (document.getElementById('section5-residential-interior').classList.contains('active')) showSection('5-residential-interior');
+                else showSection('5-residential-exterior');
+            }
+            else if (sectionNum === 7) showSection('6-residential-interior-conditions');
+            else if (sectionNum === 8) showSection('7-residential-interior-finish');
+            else if (sectionNum === 9) showSection('8-residential-interior-availability');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+            document.getElementById('section' + sectionId).classList.add('active');
+        }
+
+        function generateConditionQuestions(scopes) {
+            const container = document.getElementById('conditionQuestionsContainer');
+            container.innerHTML = '';
+            scopes.forEach(scope => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label>On a scale of 1 to 5, 1 being Poor and 5 being Basically Perfect, what condition is this ${scope}?</label>
+                    <select name="condition-${scope}">
+                        <option value="">Select condition</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Basically Perfect</option>
+                    </select>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        document.getElementById('estimateForm').addEventListener('submit', function(e) {
+            console.log('Form submitted to Formspree');
+        });
+    </script>
+        </form>
+      </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p>
+        Contact us: <a href="tel:+13852616543">(385) 261‑6543</a>
+        &nbsp;|&nbsp;
+        <a href="mailto:info@gqpainting.com">info@gqpainting.com</a>
+      </p>
+      <p>© 2026 Greene Quality Painting. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
