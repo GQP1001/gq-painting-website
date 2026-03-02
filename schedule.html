@@ -286,6 +286,9 @@
                     }
                 }
             } else if (sectionNum === 3) {
+                // require description for commercial path
+                const desc = document.getElementById('projectDescription').value.trim();
+                if (!desc) { alert('Please describe your project before continuing.'); return; }
                 showSection('4-commercial');
             } else if (sectionNum === 5) {
                 const projectScope = Array.from(document.querySelectorAll('input[name="projectScope"]:checked')).map(el => el.value);
@@ -295,19 +298,34 @@
                     generateConditionQuestions(selectedScopes);
                     showSection('6-residential-interior-conditions');
                 } else if (projectScope.includes('Exterior') && !projectScope.includes('Interior')) {
+                    // ensure exterior questions answered
+                    const brick = document.querySelector('input[name="bareBrick"]:checked');
+                    const colors = document.querySelector('input[name="colorCount"]:checked');
+                    if (!brick || !colors) { alert('Please answer both exterior questions'); return; }
                     showSection('6-residential-exterior-availability');
                 }
             } else if (sectionNum === 6) {
                 if (document.getElementById('section6-residential-interior-conditions').classList.contains('active')) {
+                    // require all generated selects have values
+                    const selects = document.querySelectorAll('#section6-residential-interior-conditions select');
+                    for (let sel of selects) {
+                        if (!sel.value) { alert('Please rate all selected surfaces'); return; }
+                    }
                     showSection('7-residential-interior-finish');
                 } else if (document.getElementById('section6-residential-exterior-availability').classList.contains('active')) {
+                    const avail = document.getElementById('exteriorAvailability').value.trim();
+                    if (!avail) { alert('Please specify availability'); return; }
                     showSection('7-residential-exterior-contact');
                 }
             } else if (sectionNum === 7) {
                 if (document.getElementById('section7-residential-interior-finish').classList.contains('active')) {
+                    const finish = document.querySelector('input[name="finishLevel"]:checked');
+                    if (!finish) { alert('Please choose a finish level'); return; }
                     showSection('8-residential-interior-availability');
                 }
             } else if (sectionNum === 8) {
+                const avail = document.getElementById('interiorAvailability').value.trim();
+                if (!avail) { alert('Please specify availability'); return; }
                 showSection('9-residential-interior-contact');
             }
         }
@@ -351,8 +369,29 @@
             });
         }
 
+        // ensure that whichever contact section is currently visible has all fields filled
         document.getElementById('estimateForm').addEventListener('submit', function(e) {
-            console.log('Form submitted to Formspree');
+            // only validate contact info; other steps are handled during navigation
+            let sectionId = null;
+            if (document.getElementById('section4-commercial').classList.contains('active')) {
+                sectionId = 'section4-commercial';
+            } else if (document.getElementById('section9-residential-interior-contact').classList.contains('active')) {
+                sectionId = 'section9-residential-interior-contact';
+            } else if (document.getElementById('section7-residential-exterior-contact').classList.contains('active')) {
+                sectionId = 'section7-residential-exterior-contact';
+            }
+
+            if (sectionId) {
+                const inputs = document.querySelectorAll('#' + sectionId + ' input');
+                for (let inp of inputs) {
+                    if ((inp.type === 'text' || inp.type === 'tel') && !inp.value.trim()) {
+                        alert('Please fill out all contact information before submitting.');
+                        e.preventDefault();
+                        return;
+                    }
+                }
+            }
+            // otherwise let the form submit normally
         });
     </script>
         </form>
